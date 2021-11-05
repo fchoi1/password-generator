@@ -26,7 +26,8 @@ var randomNum = function(min,max){
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
-// Utility Function - Randomly split up x (positive int) items into number
+// Utility Function - Randomly split up x (positive int) items into number 
+// NOTE: not totally random, with bias towards the beginning indexes
 var splitNum = function(x, number){
   var numArray = [];
   var tempNum = number
@@ -39,7 +40,29 @@ var splitNum = function(x, number){
       numArray.push(n);
     }
   }
-  return(numArray)
+  return numArray;
+}
+
+// Better function than splitNum, more randomize
+var normalize = function(x,num){
+  var numArray = [];
+  var numArray2 = [];
+  var sum = 0;
+  var rem = 0; // Remainder
+
+  // Generate Random Int Array
+  for (var i = 0; i < x; i++){
+      n = randomNum(1,num);
+      numArray.push(n);
+      sum += n;
+  } 
+  // Normalize to have all numbers in array add to num
+  for (var i = 0; i < x; i++){
+      var count = numArray[i]*num + rem;
+      numArray2.push(Math.floor(count / sum));
+      rem = count % sum;
+  }
+  return numArray2;
 }
 
 // Generate Password Function
@@ -142,9 +165,10 @@ var confirmCharType = function(passwordObj){
   return passwordObj;
 }
 
+// Main logic to produce password
 var randomizePassword = function(passwordObj){
-  // Get Number of each Char Type
-  //console.log(passwordObj.charTypeArray);
+
+  // Get Number of each Char Type available to use
   passwordObj = setNumType(passwordObj);
 
   // Reset password in case first
@@ -152,14 +176,14 @@ var randomizePassword = function(passwordObj){
 
   // Set an array for charTypeArray
   var numCharType = passwordObj.charTypeArray;
-  //console.log(numCharType);
 
   var randType = 0;
   var tempChar = '';
   var emptyCharList = [];
 
   for (var i=0; i < passwordObj.passwordLength; i++){
-    emptyCharList = checkCharArray(numCharType);
+
+    emptyCharList = checkCharArray(numCharType); // Check which char Types are available to use
 
     randType = emptyCharList[randomNum(0,emptyCharList.length-1)]; //  Chose only with charTypes remaining
     
@@ -171,7 +195,7 @@ var randomizePassword = function(passwordObj){
   return passwordObj;
 }
 
-// check which index is 0 to not use numCharType 
+// check which char array is 0 to not use it for password generation
 var checkCharArray = function(numCharType){
   var emptyChars = [];
   for (var i=0;i<numCharType.length;i++){
@@ -203,7 +227,7 @@ var getRandChar = function(index, numCharType){
 // Randomly set how many of each type for the password
 var setNumType = function(passwordObj){
   var j = 0; //Array iterator
-  numberOfEachChar = splitNum(passwordObj.numTypes, passwordObj.passwordLength-passwordObj.numTypes);
+  numberOfEachChar = normalize(passwordObj.numTypes, passwordObj.passwordLength-passwordObj.numTypes);
   //(numberOfEachChar,passwordObj.passwordLength, passwordObj.numTypes);
     // add second conidtion to prevent out of range error
     if(passwordObj.useLower && j < numberOfEachChar.length){

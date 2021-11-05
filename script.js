@@ -9,7 +9,6 @@ var charList = [lowerChar, upperChar, specialChar, numberChar];
 var maxPassword = 128;
 var minPassword = 8;
 
-
 //Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
@@ -78,24 +77,18 @@ var generatePassword = function(){
     passwordInfo = confirmCharType(passwordInfo);
   }
 
-   // What if Users selects no char types? Set to default lowerCase  then
-
-   if (passwordInfo.numTypes === 0){
-     alert("You did not select a char type, setting to all Lowercase")
-     passwordInfo.useLower = true;
-     passwordInfo.charTypeArray[0] = 1;
-     passwordInfo.numTypes += 1;
-   }
-
-   //console.log(passwordInfo.charTypeArray);
-
-  if (pwCriteria === 'default'){
+  // What if Users selects no char types? Set to default lowerCase then
+  if (passwordInfo.numTypes === 0 && pwCriteria === 'character'){
+    alert("You did not select a char type, setting to all Lowercase")
+ }
+ 
+  // Default setting in nothing is selected
+  if (pwCriteria === 'default' || passwordInfo.numTypes === 0){
     //default setting if type not specified
     passwordInfo.useLower = true;
-    passwordInfo.charTypeArray[0] = passwordInfo.passwordLength;
+    passwordInfo.charTypeArray[0] = 1;
+    passwordInfo.numTypes += 1;
   }
-
- 
   // Actual function to randomize password
   passwordInfo = randomizePassword(passwordInfo);
   //console.log('the password is ', passwordInfo.value);
@@ -103,15 +96,18 @@ var generatePassword = function(){
 }
 
 var confirmPasswordLength = function(passwordObj){
-  var pwLength = prompt("Enter Desired Password Length (min: 8 characters, max: 128 characters)");
 
-  // Check if length of password is accepted
-  if (pwLength < minPassword || pwLength > maxPassword){
-    alert("Password legnth is out of the range given");
-    confirmPasswordLength();
-  }else if (isNaN(pwLength)){
-    alert("You did not enter a number!");
-    confirmPasswordLength();
+  // Keep Looping until correct length
+  while(true){
+    var pwLength = prompt("Enter Desired Password Length (min: " + minPassword +" characters, max: " + maxPassword + " characters)");
+    // Check if length of password is accepted
+    if (pwLength < minPassword || pwLength > maxPassword){
+      alert("Password legnth is out of the range given");
+    }else if (isNaN(pwLength)){
+      alert("You did not enter a number!");
+    }else{
+      break; // Until valid number
+    }
   }
   passwordObj.passwordLength = pwLength;
   return passwordObj;

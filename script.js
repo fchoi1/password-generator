@@ -72,9 +72,9 @@ var generatePassword = function(){
   var pwCriteria = prompt("Select Password Criteria: Length, Character, Both, Default");
   pwCriteria = pwCriteria.toLowerCase();
   
-  // Create password object
+  // Create password object, made code scalable to add possible other features such as adding a certain number of chars types
   var passwordInfo = {
-    passwordLength: randomNum(minPassword, maxPassword), //Default length is random
+    passwordLength: randomNum(minPassword, maxPassword), //Let Default length is random
     useLower: false,
     useUpper: false,
     useSpecial: false,
@@ -227,9 +227,11 @@ var getRandChar = function(index, numCharType){
 // Randomly set how many of each type for the password
 var setNumType = function(passwordObj){
   var j = 0; //Array iterator
+
+  // Call to generate random number for each selected char type
   numberOfEachChar = normalize(passwordObj.numTypes, passwordObj.passwordLength-passwordObj.numTypes);
-  //(numberOfEachChar,passwordObj.passwordLength, passwordObj.numTypes);
-    // add second conidtion to prevent out of range error
+
+    // Append to char Type array in object
     if(passwordObj.useLower && j < numberOfEachChar.length){
       passwordObj.charTypeArray[0] += numberOfEachChar[j];
       j++

@@ -4,7 +4,7 @@ var lowerChar = "abcdefghijklmnopqrstuvwxyz"
 var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var specialChar =" !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~\\";
 var numberChar = '0123456789'
-// Store in List
+// Store char type in List
 var charList = [lowerChar, upperChar, specialChar, numberChar];
 var maxPassword = 128;
 var minPassword = 8;
@@ -43,7 +43,7 @@ var splitNum = function(x, number){
   return numArray;
 }
 
-// Better function than splitNum, more randomize
+// Utility Function - Better function than splitNum, more randomize
 var normalize = function(x,num){
   var numArray = [];
   var numArray2 = [];

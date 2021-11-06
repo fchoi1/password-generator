@@ -22,7 +22,7 @@ Made using HTML, CSS, and Javascript
     
     * Default: Use default password generator settings
 
-    ![](step1.png)
+        ![](step1.png)
 
 
 2. Enter password length (if Applicable):
@@ -31,27 +31,27 @@ Made using HTML, CSS, and Javascript
 
     * Default password length is randomize between 8 and 128 characters
 
-    ![](step2.png)
+        ![](step2.png)
 
 3. Specify types of characters used:
 
-    * Series of prompts to select which types of characters to use:
+    Series of prompts to select which types of characters to use:
 
-        * Lowercase: include lowercase letters in password (Default option)
+    * Lowercase: include lowercase letters in password (Default option)
 
-    ![](step3a.png)
+        ![](step3a.png)
 
-        * UpperCase: include Uppercase letters in password 
+    * UpperCase: include Uppercase letters in password 
 
-    ![](step3b.png)
+        ![](step3b.png)
 
-        * Special Case: include Special characters (" !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~\") in password 
+    * Special Case: include Special characters (" !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~\") in password 
 
-    ![](step3c.png)
+        ![](step3c.png)
 
-        * Number Case: include numbers in password
+    * Number Case: include numbers in password
 
-    ![](step3d.png)
+        ![](step3d.png)
 
 4. Password Generated from criteria:
 
